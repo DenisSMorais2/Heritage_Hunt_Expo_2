@@ -1,47 +1,63 @@
-import { useEffect } from 'react';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
+import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../constants/theme';
 
 /**
- * Layout principal do app
- * Define estrutura de navegação
+ * Layout das abas principais
  */
-export default function RootLayout() {
+export default function TabLayout() {
   return (
-    <>
-      <StatusBar style="light" />
-      
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: 'white' },
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.gray,
+        tabBarStyle: {
+          backgroundColor: 'white',
+          borderTopWidth: 1,
+          borderTopColor: '#E5E7EB',
+          height: 60,
+          paddingBottom: 8,
+          paddingTop: 8,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '600',
+        },
+      }}
+    >
+      {/* Scanner */}
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Scanner',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="qr-code" size={size} color={color} />
+          ),
         }}
-      >
-        {/* Tela de login */}
-        <Stack.Screen 
-          name="index" 
-          options={{
-            title: 'Login',
-          }}
-        />
-        
-        {/* Grupo de abas */}
-        <Stack.Screen 
-          name="(tabs)" 
-          options={{
-            headerShown: false,
-          }}
-        />
-        
-        {/* Modal de detalhes */}
-        <Stack.Screen
-          name="modal"
-          options={{
-            presentation: 'modal',
-            title: 'Detalhes',
-          }}
-        />
-      </Stack>
-    </>
+      />
+
+      {/* Mapa */}
+      <Tabs.Screen
+        name="map"
+        options={{
+          title: 'Mapa',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="map" size={size} color={color} />
+          ),
+        }}
+      />
+
+      {/* Perfil */}
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Perfil',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person" size={size} color={color} />
+          ),
+        }}
+      />
+    </Tabs>
   );
 }
