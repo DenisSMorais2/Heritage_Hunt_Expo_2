@@ -1,63 +1,48 @@
-import { Tabs } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../constants/theme';
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
 /**
- * Layout das abas principais
+ * Layout principal do app
+ * IMPORTANTE: headerShown: false para remover barra padrão
  */
-export default function TabLayout() {
+export default function RootLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.gray,
-        tabBarStyle: {
-          backgroundColor: 'white',
-          borderTopWidth: 1,
-          borderTopColor: '#E5E7EB',
-          height: 60,
-          paddingBottom: 8,
-          paddingTop: 8,
-        },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '600',
-        },
-      }}
-    >
-      {/* Scanner */}
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Scanner',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="qr-code" size={size} color={color} />
-          ),
+    <>
+      <StatusBar style="light" />
+      
+      <Stack
+        screenOptions={{
+          headerShown: false,              // IMPORTANTE: Desliga header padrão
+          contentStyle: { 
+            backgroundColor: 'white' 
+          },
         }}
-      />
-
-      {/* Mapa */}
-      <Tabs.Screen
-        name="map"
-        options={{
-          title: 'Mapa',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="map" size={size} color={color} />
-          ),
-        }}
-      />
-
-      {/* Perfil */}
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Perfil',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person" size={size} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+      >
+        {/* Tela de login */}
+        <Stack.Screen 
+          name="index" 
+          options={{
+            headerShown: false,            // Confirma que não tem header
+          }}
+        />
+        
+        {/* Grupo de abas */}
+        <Stack.Screen 
+          name="(tabs)" 
+          options={{
+            headerShown: false,            // Confirma que não tem header
+          }}
+        />
+        
+        {/* Modal de detalhes */}
+        <Stack.Screen
+          name="modal"
+          options={{
+            presentation: 'modal',
+            headerShown: false,            // Confirma que não tem header
+          }}
+        />
+      </Stack>
+    </>
   );
 }
